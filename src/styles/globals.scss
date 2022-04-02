@@ -17,6 +17,10 @@ body, html {
   background-color: var(--bg);
 }
 
+a {
+  text-decoration: none;
+}
+
 ::-webkit-scrollbar {
   width: 9px;
   background: var(--bg);

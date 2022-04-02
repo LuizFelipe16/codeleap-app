@@ -1,16 +1,35 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import { Box, Flex, Heading, Input, Text, VStack } from '@chakra-ui/react';
+import { Box, Flex, Heading, Input, Text, VStack, useToast } from '@chakra-ui/react';
 import { FaSignInAlt } from 'react-icons/fa';
 
-import styles from '../styles/pages/signup.module.scss';
+import commonStyles from '../styles/pages/common.module.scss';
+import { useRouter } from 'next/router';
 
 export default function Signup() {
+  const router = useRouter();
+  const toast = useToast();
   const [name, setName] = useState("");
+
+  function handleSignup() {
+    if (name.length < 3) {
+      toast({
+        title: 'Username error',
+        description: 'Fill in the "username" field correctly (minimum of 3 characters)',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      });
+
+      return;
+    }
+
+    router.push('/network');
+  }
 
   return (
     <>
-      <Head><title>Signup | CodeLeap</title></Head>
+      <Head><title>Network | CodeLeap</title></Head>
       <Flex
         w="100vw"
         h="100vh"
@@ -21,15 +40,16 @@ export default function Signup() {
         <VStack
           data-aos="zoom-in"
           data-aos-duration="2000"
-          w="31rem"
+
+          w="32rem"
           h="auto"
           minH="14rem"
           bg="white"
-          boxShadow="md"
-          p="6"
           align="flex-start"
           justify="space-between"
           spacing="4"
+          p="6"
+          boxShadow="md"
         >
           <Heading fontSize="lg">Welcome to CodeLeap network!</Heading>
           <Box w="100%">
@@ -43,7 +63,13 @@ export default function Signup() {
             />
           </Box>
 
-          <button className={`${styles.sign_up_bottom} ${name.length < 4 && styles.deactivate}`}>
+          <button
+            className={`
+              ${commonStyles.bottom} 
+              ${name.length < 3 && commonStyles.deactivate}
+            `}
+            onClick={handleSignup}
+          >
             ENTER <FaSignInAlt />
           </button>
         </VStack>

@@ -1,0 +1,28 @@
+:root {
+  --bg: #ddd;
+  --black: #000;
+  --white: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  font-family: 'Roboto', sans-serif;
+}
+
+body, html {
+  overflow-x: hidden;
+  background-color: var(--bg);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--black);
+  border-radius: 2rem;
+}

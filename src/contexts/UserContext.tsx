@@ -2,6 +2,7 @@ import Router from "next/router";
 import { Dispatch, SetStateAction, createContext, ReactNode, useState } from "react";
 import { setCookie, destroyCookie, parseCookies } from 'nookies';
 import { useToast } from "@chakra-ui/react";
+import { options } from "../utils/toast";
 
 type User = {
   username: string;
@@ -35,8 +36,7 @@ export function UserProvider({ children }: UserProviderProps) {
       position: "top",
       title: 'Logged Out',
       status: 'success',
-      duration: 3000,
-      isClosable: true
+      ...options
     });
 
     setUser({ username: "" });
@@ -53,8 +53,7 @@ export function UserProvider({ children }: UserProviderProps) {
         title: 'Username error',
         description: 'Fill in the "username" field correctly (minimum of 2 characters)',
         status: 'error',
-        duration: 3000,
-        isClosable: true
+        ...options
       });
 
       return;

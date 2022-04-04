@@ -10,6 +10,7 @@ import {
 import { useMutation } from 'react-query';
 import { api } from '../../services/api';
 import { queryClient } from '../../services/queryClient';
+import { options } from '../../utils/toast';
 
 interface IModalDeletePostProps {
   isOpen: boolean;
@@ -29,8 +30,7 @@ export function ModalDeletePost({ isOpen, onClose, id }: IModalDeletePostProps) 
         position: "top",
         title: 'Post Deleted',
         status: 'success',
-        duration: 3000,
-        isClosable: true
+        ...options
       });
       queryClient.invalidateQueries('posts');
     },
@@ -40,8 +40,7 @@ export function ModalDeletePost({ isOpen, onClose, id }: IModalDeletePostProps) 
         title: 'Error Delete',
         description: 'An error occurred while trying to delete the post, please try again.',
         status: 'error',
-        duration: 3000,
-        isClosable: true
+        ...options
       });
     }
   });

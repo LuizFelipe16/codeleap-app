@@ -20,6 +20,7 @@ import { api } from '../../services/api';
 import { queryClient } from '../../services/queryClient';
 import { Input } from '../Input';
 import { Textarea } from '../Input/Textarea';
+import { options } from '../../utils/toast';
 
 type Post = {
   id: number;
@@ -68,8 +69,7 @@ export function ModalEditPost({ isOpen, onClose, post }: IModalEditPostProps) {
         position: "top",
         title: 'Post Updated',
         status: 'success',
-        duration: 3000,
-        isClosable: true
+        ...options
       });
       queryClient.invalidateQueries('posts');
       reset();
@@ -81,8 +81,7 @@ export function ModalEditPost({ isOpen, onClose, post }: IModalEditPostProps) {
         title: 'Error Post',
         description: 'An error occurred while trying to update the post, please try again.',
         status: 'error',
-        duration: 3000,
-        isClosable: true
+        ...options
       });
     }
   });

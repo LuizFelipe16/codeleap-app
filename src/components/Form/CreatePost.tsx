@@ -12,6 +12,7 @@ import { Textarea } from "../Input/Textarea";
 
 import { queryClient } from "../../services/queryClient";
 import { api } from "../../services/api";
+import { options } from "../../utils/toast";
 
 type CreatePostFormData = {
   title: string;
@@ -46,23 +47,21 @@ export function FormCreatePost() {
   }, {
     onSuccess: () => {
       toast({
-        position: "bottom",
+        position: 'top',
         title: 'Post Created',
         status: 'success',
-        duration: 3000,
-        isClosable: true
+        ...options
       });
       queryClient.invalidateQueries('posts');
       reset();
     },
     onError: () => {
       toast({
-        position: "bottom",
+        position: 'top',
         title: 'Error Post',
         description: 'An error occurred while trying to create the post, please try again.',
         status: 'error',
-        duration: 3000,
-        isClosable: true
+        ...options
       });
     }
   });
@@ -70,12 +69,11 @@ export function FormCreatePost() {
   const handleCreatePost: SubmitHandler<CreatePostFormData> = async (values) => {
     if (!user.username) {
       toast({
-        position: "bottom",
+        position: "top",
         title: 'Login not found',
         description: 'Login again and enter your username correctly.',
         status: 'error',
-        duration: 3000,
-        isClosable: true
+        ...options
       });
 
       return;

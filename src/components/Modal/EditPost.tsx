@@ -13,6 +13,8 @@ import {
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 
+import { Button } from '../Button';
+
 import commonStyles from '../../styles/pages/common.module.scss';
 
 interface IModalEditPostProps {
@@ -38,7 +40,7 @@ export function ModalEditPost({ isOpen, onClose }: IModalEditPostProps) {
               placeholder='Hello world'
             />
           </Box>
-          <Box w="100%">
+          <Box w="100%" mt="4">
             <Text fontSize="md" mb="2">Content</Text>
             <Textarea
               w="100%"
@@ -48,16 +50,9 @@ export function ModalEditPost({ isOpen, onClose }: IModalEditPostProps) {
             />
           </Box>
 
-
         </ModalBody>
         <ModalFooter>
-          <button
-            className={`
-              ${commonStyles.bottom} 
-            `}
-          >
-            SAVE
-          </button>
+          <Button className={commonStyles.bottom} text="SAVE" />
         </ModalFooter>
       </ModalContent>
     </Modal>

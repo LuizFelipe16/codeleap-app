@@ -1,9 +1,14 @@
 import { Button, Flex, HStack, Text, useDisclosure, VStack } from "@chakra-ui/react";
+import { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { ModalDeletePost } from "../Modal/DeletePost";
+import { ModalEditPost } from "../Modal/EditPost";
 
 export function CardPost() {
   const { onClose, isOpen, onOpen } = useDisclosure();
+
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false);
+  const onOpenOrCloseModalEdit = () => setIsModalEditOpen(!isModalEditOpen);
 
   return (
     <>
@@ -46,6 +51,7 @@ export function CardPost() {
               <FaTrash />
             </Button>
             <Button
+              onClick={onOpenOrCloseModalEdit}
               p="1"
               bg="transparent"
               _hover={{
@@ -73,6 +79,11 @@ export function CardPost() {
           necessitatibus nisi labore molestiae natus. Repellendus esse ab aperiam numquam pariatur.
         </Text>
       </VStack>
+
+      <ModalEditPost
+        onClose={onOpenOrCloseModalEdit}
+        isOpen={isModalEditOpen}
+      />
 
       <ModalDeletePost
         onClose={onClose}

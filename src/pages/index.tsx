@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { Box, Flex, Heading, Input, Text, VStack, useToast, Button } from '@chakra-ui/react';
+import { Box, Flex, Heading, Input, Text, VStack, useToast } from '@chakra-ui/react';
+
+import { Button } from '../components/Button';
 
 import commonStyles from '../styles/pages/common.module.scss';
 
@@ -73,20 +75,8 @@ export default function Signup() {
             onClick={handleSignUp}
             isLoading={isLoadingSignUp}
             className={`${name.length < 3 && commonStyles.deactivate}`}
-            size="sm"
-            bg="black"
-            px="8"
-            borderRadius="sm"
-            color="white"
-            fontWeight="400"
-            transition="0.2s"
-            alignSelf="flex-end"
-            _hover={{
-              bg: 'black'
-            }}
-          >
-            ENTER
-          </Button>
+            text="ENTER"
+          />
         </VStack>
       </Flex>
     </>

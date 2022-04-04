@@ -1,22 +1,26 @@
-import commonStyles from '../styles/pages/common.module.scss';
+import { Button as ChakraButton, ButtonProps } from '@chakra-ui/react';
 
-interface IButtonProps {
+interface IButtonProps extends ButtonProps {
   text: string;
-  onClick: () => void;
-
-  value?: string;
 }
 
-export function Button({ text, value = '', onClick }: IButtonProps) {
+export function Button({ text, ...rest }: IButtonProps) {
   return (
-    <button
-      className={`
-              ${commonStyles.bottom} 
-              ${value.length < 3 && commonStyles.deactivate}
-            `}
-      onClick={onClick}
+    <ChakraButton
+      size="sm"
+      bg="black"
+      px="8"
+      borderRadius="sm"
+      color="white"
+      fontWeight="400"
+      transition="0.2s"
+      alignSelf="flex-end"
+      _hover={{
+        bg: 'black'
+      }}
+      {...rest}
     >
       {text}
-    </button>
+    </ChakraButton>
   );
 }

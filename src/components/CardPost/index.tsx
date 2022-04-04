@@ -1,11 +1,20 @@
 import { Button, Flex, HStack, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { useUser } from "../../hooks/useUser";
 import { ModalDeletePost } from "../Modal/DeletePost";
 import { ModalEditPost } from "../Modal/EditPost";
 
-export function CardPost() {
+interface ICardPostProps {
+  username: string;
+  title: string;
+  content: string;
+  first_publication_date: string;
+}
+
+export function CardPost({ username, title, content, first_publication_date }: ICardPostProps) {
   const { onClose, isOpen, onOpen } = useDisclosure();
+  const { user } = useUser();
 
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
   const onOpenOrCloseModalEdit = () => setIsModalEditOpen(!isModalEditOpen);
@@ -36,47 +45,43 @@ export function CardPost() {
           align="center"
           justify="space-between"
         >
-          <Text fontWeight="700" fontSize="lg" color="white">My First Post</Text>
+          <Text fontWeight="700" fontSize="lg" color="white">{title}</Text>
 
-          <HStack color="white" fontSize="lg" spacing="6">
-            <Button
-              onClick={onOpen}
-              p="1"
-              bg="transparent"
-              _hover={{
-                color: 'black',
-                bg: 'white'
-              }}
-            >
-              <FaTrash />
-            </Button>
-            <Button
-              onClick={onOpenOrCloseModalEdit}
-              p="1"
-              bg="transparent"
-              _hover={{
-                color: 'black',
-                bg: 'white'
-              }}
-            >
-              <FaEdit />
-            </Button>
-          </HStack>
+          {user.username === username && (
+            <HStack color="white" fontSize="lg" spacing="6">
+              <Button
+                onClick={onOpen}
+                p="1"
+                bg="transparent"
+                _hover={{
+                  color: 'black',
+                  bg: 'white'
+                }}
+              >
+                <FaTrash />
+              </Button>
+              <Button
+                onClick={onOpenOrCloseModalEdit}
+                p="1"
+                bg="transparent"
+                _hover={{
+                  color: 'black',
+                  bg: 'white'
+                }}
+              >
+                <FaEdit />
+              </Button>
+            </HStack>
+          )}
         </Flex>
 
         <Flex w="100%" px="6" align="center" justify="space-between">
-          <Text color="gray.500" fontWeight="700">@Luiz</Text>
-          <Text color="gray.500" fontWeight="400">25min ago</Text>
+          <Text color="gray.500" fontWeight="700">@{username}</Text>
+          <Text color="gray.500" fontWeight="400">{first_publication_date} ago</Text>
         </Flex>
 
         <Text px="6" color="black">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Illo rerum veritatis cumque fugit alias. Dolorem quam atque quia eaque neque in
-          cum possimus nemo nobis maiores ratione, veniam, pariatur veritatis!
-
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ea esse dignissimos accusamus, debitis consequatur atque fugit nulla nihil dicta,
-          necessitatibus nisi labore molestiae natus. Repellendus esse ab aperiam numquam pariatur.
+          {content}
         </Text>
       </VStack>
 

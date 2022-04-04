@@ -1,6 +1,7 @@
-import { Dispatch, SetStateAction } from "react";
-import { useState } from "react";
-import { createContext, ReactNode } from "react";
+import Router from "next/router";
+import { Dispatch, SetStateAction, createContext, ReactNode, useState } from "react";
+import { setCookie, destroyCookie } from 'nookies';
+import { useToast } from "@chakra-ui/react";
 
 type User = {
   username: string;
@@ -9,6 +10,8 @@ type User = {
 type UserContextData = {
   user: User;
   setUser: Dispatch<SetStateAction<User>>;
+  signIn: (username: string) => void;
+  signOut: () => void;
 }
 
 interface UserProviderProps {
@@ -18,12 +21,56 @@ interface UserProviderProps {
 export const UserContext = createContext({} as UserContextData);
 
 export function UserProvider({ children }: UserProviderProps) {
+  const toast = useToast();
   const [user, setUser] = useState<User>({} as User);
+
+  function signOut(): void {
+    toast({
+      position: "top",
+      title: 'Logged Out',
+      status: 'success',
+      duration: 3000,
+      isClosable: true
+    });
+
+    setUser({ username: "" });
+    destroyCookie(undefined, 'codeleap.username');
+
+    Router.push('/');
+    return;
+  }
+
+  function signIn(username: string): void {
+    if (username.length < 3) {
+      toast({
+        position: "top",
+        title: 'Username error',
+        description: 'Fill in the "username" field correctly (minimum of 3 characters)',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      });
+
+      return;
+    }
+
+    setCookie(undefined, 'codeleap.username', username, {
+      maxAge: 60 * 60 * 24 * 30,
+      path: '/'
+    });
+
+    setUser({ username });
+
+    Router.push('/network');
+    return;
+  }
 
   return (
     <UserContext.Provider value={{
       user,
-      setUser
+      setUser,
+      signIn,
+      signOut
     }}>
       {children}
     </UserContext.Provider>

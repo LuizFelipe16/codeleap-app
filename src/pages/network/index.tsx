@@ -1,5 +1,6 @@
 import Head from 'next/head';
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex, Heading, Icon, Button as CButton } from '@chakra-ui/react';
+import { FaSignOutAlt } from 'react-icons/fa';
 
 import { CardPost } from '../../components/CardPost';
 import { FormCreatePost } from '../../components/Form/CreatePost';
@@ -7,9 +8,11 @@ import { Loading } from '../../components/Loading';
 import { ScrollTopButton } from '../../components/ScrollTopButton';
 
 import { usePosts } from '../../hooks/querys/usePosts';
+import { useUser } from '../../hooks/useUser';
 
 export default function Network() {
   const { data, isLoading } = usePosts(1);
+  const { signOut } = useUser();
 
   if (isLoading) return (<Loading />)
 
@@ -34,6 +37,18 @@ export default function Network() {
           justify="center"
         >
           <Heading w="auto" fontWeight="700" fontSize="1.6rem" color="white">CodeLeap Network</Heading>
+          <CButton
+            onClick={signOut}
+            bg="transparent"
+            position="absolute"
+            color="white"
+            right="10"
+            top="6"
+            transition="0.3s"
+            _hover={{ filter: 'brightness(60%)', }}
+          >
+            <Icon as={FaSignOutAlt} />
+          </CButton>
         </Flex>
 
         <FormCreatePost />

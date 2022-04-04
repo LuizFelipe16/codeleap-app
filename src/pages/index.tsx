@@ -1,40 +1,22 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { Box, Flex, Heading, Input, Text, VStack, useToast } from '@chakra-ui/react';
+import { Box, Flex, Heading, Input, Text, VStack } from '@chakra-ui/react';
 
+import { useUser } from '../hooks/useUser';
 import { Button } from '../components/Button';
 
 import commonStyles from '../styles/pages/common.module.scss';
-import { useUser } from '../hooks/useUser';
+import { withSSRGuest } from '../actions/withSSRGuest';
 
 export default function Signup() {
-  const router = useRouter();
-  const toast = useToast();
-  const { setUser } = useUser();
+  const { signIn } = useUser();
 
   const [username, setUsername] = useState("");
   const [isLoadingSignUp, setIsLoadingSignUp] = useState(false);
 
   function handleSignUp(): void {
     setIsLoadingSignUp(true);
-
-    if (username.length < 3) {
-      toast({
-        position: "top",
-        title: 'Username error',
-        description: 'Fill in the "username" field correctly (minimum of 3 characters)',
-        status: 'error',
-        duration: 3000,
-        isClosable: true
-      });
-
-      setIsLoadingSignUp(false);
-      return;
-    }
-
-    setUser({ username });
-    router.push('/network');
+    signIn(username);
     setIsLoadingSignUp(false);
     return;
   }
@@ -55,6 +37,7 @@ export default function Signup() {
           h="100%"
           p="16"
           bg="black"
+          position="relative"
           align="center"
           justify={["center", "center", "flex-start"]}
           borderEndEndRadius={["0", "0", "30rem"]}
@@ -107,3 +90,9 @@ export default function Signup() {
     </>
   );
 }
+
+export const getServerSideProps = withSSRGuest(async (ctx) => {
+  return {
+    props: {}
+  }
+});

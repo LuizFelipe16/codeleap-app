@@ -16,7 +16,8 @@ export function Button({ text, ...rest }: IButtonProps) {
       transition="0.2s"
       alignSelf="flex-end"
       _hover={{
-        bg: 'black'
+        bg: 'black',
+        filter: 'brightness(60%)',
       }}
       {...rest}
     >

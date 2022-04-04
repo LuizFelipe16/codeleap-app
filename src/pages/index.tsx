@@ -6,18 +6,20 @@ import { Box, Flex, Heading, Input, Text, VStack, useToast } from '@chakra-ui/re
 import { Button } from '../components/Button';
 
 import commonStyles from '../styles/pages/common.module.scss';
+import { useUser } from '../hooks/useUser';
 
 export default function Signup() {
   const router = useRouter();
   const toast = useToast();
+  const { setUser } = useUser();
 
-  const [name, setName] = useState("");
+  const [username, setUsername] = useState("");
   const [isLoadingSignUp, setIsLoadingSignUp] = useState(false);
 
   function handleSignUp(): void {
     setIsLoadingSignUp(true);
 
-    if (name.length < 3) {
+    if (username.length < 3) {
       toast({
         title: 'Username error',
         description: 'Fill in the "username" field correctly (minimum of 3 characters)',
@@ -30,6 +32,7 @@ export default function Signup() {
       return;
     }
 
+    setUser({ username });
     router.push('/network');
     setIsLoadingSignUp(false);
     return;
@@ -43,41 +46,55 @@ export default function Signup() {
         h="100vh"
         bg="bg.100"
         align="center"
-        justify="center"
+        justify="space-between"
       >
-        <VStack
-          data-aos="zoom-in"
-          data-aos-duration="2000"
-
-          w="32rem"
-          h="auto"
-          minH="14rem"
-          bg="white"
-          align="flex-start"
-          justify="space-between"
-          spacing="4"
-          p="6"
-          boxShadow="md"
+        <Flex
+          w="49%"
+          h="100%"
+          p="16"
+          bg="black"
+          align="center"
+          justify="flex-start"
+          borderEndEndRadius="30rem"
         >
-          <Heading fontSize="lg">Welcome to CodeLeap network!</Heading>
-          <Box w="100%">
-            <Text fontSize="md" mb="2">Please enter your username</Text>
-            <Input
-              w="100%"
-              variant='filled'
-              placeholder='username'
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-          </Box>
+          <Heading fontSize="6xl" color="white">CodeLeap.</Heading>
+        </Flex>
 
-          <Button
-            onClick={handleSignUp}
-            isLoading={isLoadingSignUp}
-            className={`${name.length < 3 && commonStyles.deactivate}`}
-            text="ENTER"
-          />
-        </VStack>
+        <Flex w="51%" h="100%" align="center" justify="center">
+          <VStack
+            data-aos="zoom-in"
+            data-aos-duration="1500"
+
+            w="85%"
+            h="auto"
+            minH="14rem"
+            bg="white"
+            p="6"
+            boxShadow="md"
+            align="flex-start"
+            justify="space-between"
+            spacing="4"
+          >
+            <Heading fontSize="lg">Welcome to CodeLeap network!</Heading>
+            <Box w="100%">
+              <Text fontSize="md" mb="2">Please enter your username</Text>
+              <Input
+                w="100%"
+                variant='filled'
+                placeholder='username'
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+              />
+            </Box>
+
+            <Button
+              onClick={handleSignUp}
+              isLoading={isLoadingSignUp}
+              className={`${username.length < 3 && commonStyles.deactivate}`}
+              text="ENTER"
+            />
+          </VStack>
+        </Flex>
       </Flex>
     </>
   );

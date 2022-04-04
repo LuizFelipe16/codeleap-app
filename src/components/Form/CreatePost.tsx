@@ -5,6 +5,7 @@ export function FormCreatePost() {
   return (
     <VStack
       as="form"
+      data-aos="fade-down"
       w="65%"
       h="auto"
       bg="white"

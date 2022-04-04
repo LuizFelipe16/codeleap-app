@@ -3,11 +3,14 @@ import { ChakraProvider } from '@chakra-ui/react';
 
 import { theme } from '../styles/theme';
 import '../styles/globals.scss';
+import { UserProvider } from '../contexts/UserContext';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <UserProvider>
+        <Component {...pageProps} />
+      </UserProvider>
     </ChakraProvider>
   );
 }

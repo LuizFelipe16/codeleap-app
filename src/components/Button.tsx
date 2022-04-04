@@ -10,7 +10,7 @@ export function Button({ text, ...rest }: IButtonProps) {
       size="sm"
       bg="black"
       px="8"
-      borderRadius="sm"
+      borderRadius="md"
       color="white"
       fontWeight="400"
       transition="0.2s"

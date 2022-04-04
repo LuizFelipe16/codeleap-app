@@ -3,8 +3,11 @@ import { Flex, Heading } from '@chakra-ui/react';
 
 import { CardPost } from '../../components/CardPost';
 import { FormCreatePost } from '../../components/Form/CreatePost';
+import { useUser } from '../../hooks/useUser';
 
 export default function Network() {
+  const { user } = useUser();
+
   return (
     <>
       <Head><title>Network | CodeLeap</title></Head>

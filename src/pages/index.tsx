@@ -21,6 +21,7 @@ export default function Signup() {
 
     if (username.length < 3) {
       toast({
+        position: "top",
         title: 'Username error',
         description: 'Fill in the "username" field correctly (minimum of 3 characters)',
         status: 'error',
@@ -45,27 +46,34 @@ export default function Signup() {
         w="100vw"
         h="100vh"
         bg="bg.100"
+        direction={["column", "column", "row"]}
         align="center"
         justify="space-between"
       >
         <Flex
-          w="49%"
+          w={["100%", "100%", "49%"]}
           h="100%"
           p="16"
           bg="black"
           align="center"
-          justify="flex-start"
-          borderEndEndRadius="30rem"
+          justify={["center", "center", "flex-start"]}
+          borderEndEndRadius={["0", "0", "30rem"]}
         >
-          <Heading fontSize="6xl" color="white">CodeLeap.</Heading>
+          <Heading fontSize={["4xl", "5xl", "6xl"]} color="white">CodeLeap.</Heading>
         </Flex>
 
-        <Flex w="51%" h="100%" align="center" justify="center">
+        <Flex
+          w={["100%", "100%", "51%"]}
+          h="100%"
+          mt={["-44", "-44", "0"]}
+          align="center"
+          justify="center"
+        >
           <VStack
             data-aos="zoom-in"
             data-aos-duration="1500"
 
-            w="85%"
+            w={["90%", "90%", "85%"]}
             h="auto"
             minH="14rem"
             bg="white"

@@ -22,7 +22,7 @@ export function CardPost({ username, title, content, first_publication_date }: I
   return (
     <>
       <VStack
-        w="65%"
+        w={["93%", "85%", "65%"]}
         minH="20rem"
         h="auto"
         bg="white"
@@ -32,6 +32,7 @@ export function CardPost({ username, title, content, first_publication_date }: I
         borderColor="gray.400"
         mt="4"
         p="2"
+        pb={["6", "4", "4"]}
         spacing="4"
         align="flex-start"
         justify="flex-start"

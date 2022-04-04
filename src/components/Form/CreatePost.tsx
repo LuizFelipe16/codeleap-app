@@ -6,7 +6,7 @@ export function FormCreatePost() {
     <VStack
       as="form"
       data-aos="fade-down"
-      w="65%"
+      w={["93%", "85%", "65%"]}
       h="auto"
       bg="white"
       p="6"

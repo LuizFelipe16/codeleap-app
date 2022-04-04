@@ -37,3 +37,5 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 - controlar inputs
 - checar os inputs
 - listagem django
+- pegar scroll
+- botao deslog

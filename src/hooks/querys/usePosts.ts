@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+
 import { api } from "../../services/api";
 
 type Post = {

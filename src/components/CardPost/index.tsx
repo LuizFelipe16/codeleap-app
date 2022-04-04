@@ -100,6 +100,7 @@ export function CardPost({ post }: ICardPostProps) {
       />
 
       <ModalDeletePost
+        id={post.id}
         onClose={onClose}
         isOpen={isOpen}
       />

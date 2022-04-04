@@ -1,6 +1,6 @@
 import Router from "next/router";
 import { Dispatch, SetStateAction, createContext, ReactNode, useState } from "react";
-import { setCookie, destroyCookie } from 'nookies';
+import { setCookie, destroyCookie, parseCookies } from 'nookies';
 import { useToast } from "@chakra-ui/react";
 
 type User = {
@@ -22,7 +22,13 @@ export const UserContext = createContext({} as UserContextData);
 
 export function UserProvider({ children }: UserProviderProps) {
   const toast = useToast();
-  const [user, setUser] = useState<User>({} as User);
+
+  const cookies = parseCookies(null);
+  const username = cookies['codeleap.username'];
+
+  const [user, setUser] = useState<User>({
+    username: !username ? "" : username
+  } as User);
 
   function signOut(): void {
     toast({

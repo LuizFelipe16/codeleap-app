@@ -4,17 +4,50 @@ import {
   ModalContent,
   ModalHeader,
   ModalFooter,
-  ModalBody,
-  Button
+  Button,
+  useToast
 } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { useMutation } from 'react-query';
+import { api } from '../../services/api';
+import { queryClient } from '../../services/queryClient';
 
 interface IModalDeletePostProps {
   isOpen: boolean;
   onClose: () => void;
+
+  id: number;
 }
 
-export function ModalDeletePost({ isOpen, onClose }: IModalDeletePostProps) {
+export function ModalDeletePost({ isOpen, onClose, id }: IModalDeletePostProps) {
+  const toast = useToast();
+
+  const deletePost = useMutation(async (id: number) => {
+    await api.delete(`/${id}/`);
+  }, {
+    onSuccess: () => {
+      toast({
+        position: "bottom",
+        title: 'Post Deleted',
+        status: 'success',
+        duration: 3000,
+        isClosable: true
+      });
+      queryClient.invalidateQueries('posts');
+    },
+    onError: () => {
+      toast({
+        position: "bottom",
+        title: 'Error Delete',
+        description: 'An error occurred while trying to delete the post, please try again.',
+        status: 'error',
+        duration: 3000,
+        isClosable: true
+      });
+    }
+  });
+
+  const handleDeletePost = async () => await deletePost.mutateAsync(id);
+
   return (
     <Modal isCentered size="lg" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay bg="#777777CC" />
@@ -22,8 +55,9 @@ export function ModalDeletePost({ isOpen, onClose }: IModalDeletePostProps) {
         <ModalHeader color="black">Are you sure you want to delete this item?</ModalHeader>
         <ModalFooter>
           <Button
-            mr={3}
             onClick={onClose}
+            isLoading={deletePost.isLoading}
+            mr={3}
             fontWeight="700"
             bg="white"
             borderWidth={1}
@@ -37,6 +71,8 @@ export function ModalDeletePost({ isOpen, onClose }: IModalDeletePostProps) {
             Cancel
           </Button>
           <Button
+            onClick={handleDeletePost}
+            isLoading={deletePost.isLoading}
             fontWeight="700"
             bg="white"
             borderWidth={1}

@@ -28,8 +28,6 @@ export function FormCreatePost() {
   const toast = useToast();
   const { user } = useUser();
 
-  const [isLoadingForm, setIsLoadingForm] = useState(false);
-
   const {
     register,
     reset,
@@ -42,7 +40,7 @@ export function FormCreatePost() {
   const errors = formState.errors;
 
   const createPost = useMutation(async (data: CreatePostFormData) => {
-    await api.post('', {
+    await api.post('/', {
       username: user.username,
       ...data
     });
@@ -56,7 +54,6 @@ export function FormCreatePost() {
         isClosable: true
       });
       queryClient.invalidateQueries('posts');
-      setIsLoadingForm(false);
       reset();
     },
     onError: () => {
@@ -68,7 +65,6 @@ export function FormCreatePost() {
         duration: 3000,
         isClosable: true
       });
-      setIsLoadingForm(false);
     }
   });
 
@@ -85,8 +81,6 @@ export function FormCreatePost() {
 
       return;
     }
-
-    setIsLoadingForm(true);
 
     await createPost.mutateAsync(values);
   }
@@ -123,7 +117,7 @@ export function FormCreatePost() {
         {...register('content')}
       />
 
-      <Button isLoading={isLoadingForm} type="submit" text="CREATE" />
+      <Button isLoading={createPost.isLoading} type="submit" text="CREATE" />
     </VStack>
   );
 }

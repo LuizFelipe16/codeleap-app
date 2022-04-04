@@ -5,7 +5,9 @@ export function withSSRGuest<P>(fn: GetServerSideProps<P>) {
   return async (ctx: GetServerSidePropsContext): Promise<GetServerSidePropsResult<P>> => {
     const cookies = parseCookies(ctx);
 
-    if (cookies['codeleap.username']) {
+    const username = cookies['codeleap.username'];
+
+    if (!!username) {
       return {
         redirect: {
           destination: '/network',

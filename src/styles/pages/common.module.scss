@@ -22,8 +22,6 @@
 }
 
 .deactivate {
-  transition: 0.2s;
-
-  opacity: 0.7;
-  background-color: #413f3f;
+  opacity: 0.7 !important;
+  background-color: #413f3f !important;
 }

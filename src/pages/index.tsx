@@ -1,17 +1,20 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import { Box, Flex, Heading, Input, Text, VStack, useToast } from '@chakra-ui/react';
-import { FaSignInAlt } from 'react-icons/fa';
+import { useRouter } from 'next/router';
+import { Box, Flex, Heading, Input, Text, VStack, useToast, Button } from '@chakra-ui/react';
 
 import commonStyles from '../styles/pages/common.module.scss';
-import { useRouter } from 'next/router';
 
 export default function Signup() {
   const router = useRouter();
   const toast = useToast();
-  const [name, setName] = useState("");
 
-  function handleSignup() {
+  const [name, setName] = useState("");
+  const [isLoadingSignUp, setIsLoadingSignUp] = useState(false);
+
+  function handleSignUp(): void {
+    setIsLoadingSignUp(true);
+
     if (name.length < 3) {
       toast({
         title: 'Username error',
@@ -21,10 +24,13 @@ export default function Signup() {
         isClosable: true
       });
 
+      setIsLoadingSignUp(false);
       return;
     }
 
     router.push('/network');
+    setIsLoadingSignUp(false);
+    return;
   }
 
   return (
@@ -63,15 +69,24 @@ export default function Signup() {
             />
           </Box>
 
-          <button
-            className={`
-              ${commonStyles.bottom} 
-              ${name.length < 3 && commonStyles.deactivate}
-            `}
-            onClick={handleSignup}
+          <Button
+            onClick={handleSignUp}
+            isLoading={isLoadingSignUp}
+            className={`${name.length < 3 && commonStyles.deactivate}`}
+            size="sm"
+            bg="black"
+            px="8"
+            borderRadius="sm"
+            color="white"
+            fontWeight="400"
+            transition="0.2s"
+            alignSelf="flex-end"
+            _hover={{
+              bg: 'black'
+            }}
           >
-            ENTER <FaSignInAlt />
-          </button>
+            ENTER
+          </Button>
         </VStack>
       </Flex>
     </>

@@ -9,6 +9,7 @@ import { ScrollTopButton } from '../../components/ScrollTopButton';
 
 import { usePosts } from '../../hooks/querys/usePosts';
 import { useUser } from '../../hooks/useUser';
+import { withSSRAuth } from '../../actions/withSSRAuth';
 
 export default function Network() {
   const { data, isLoading } = usePosts(1);
@@ -60,3 +61,9 @@ export default function Network() {
     </>
   );
 }
+
+export const getServerSideProps = withSSRAuth(async (ctx) => {
+  return {
+    props: {}
+  }
+});

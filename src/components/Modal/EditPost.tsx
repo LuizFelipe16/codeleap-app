@@ -8,19 +8,18 @@ import {
   useToast,
   VStack
 } from '@chakra-ui/react';
-import { ReactNode } from 'react';
 import { useMutation } from 'react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as validateYup from 'yup';
 
 import { Button } from '../Button';
-
-import { api } from '../../services/api';
-import { queryClient } from '../../services/queryClient';
 import { Input } from '../Input';
 import { Textarea } from '../Input/Textarea';
+
 import { options } from '../../utils/toast';
+import { queryClient } from '../../services/queryClient';
+import { api } from '../../services/api';
 
 type Post = {
   id: number;
@@ -32,8 +31,6 @@ interface IModalEditPostProps {
   isOpen: boolean;
   onClose: () => void;
   post: Post;
-
-  children?: ReactNode;
 }
 
 type UpdatePostFormData = {

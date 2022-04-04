@@ -1,5 +1,5 @@
 import { Button, Flex, HStack, Text, useDisclosure, VStack } from "@chakra-ui/react";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
 import { useUser } from "../../hooks/useUser";
@@ -20,7 +20,7 @@ interface ICardPostProps {
   post: Post;
 }
 
-export function CardPost({ post }: ICardPostProps) {
+function CardPostComponent({ post }: ICardPostProps) {
   const { onClose, isOpen, onOpen } = useDisclosure();
   const { user } = useUser();
 
@@ -108,3 +108,7 @@ export function CardPost({ post }: ICardPostProps) {
     </>
   );
 }
+
+export const CardPost = memo(CardPostComponent, (prevProps, nextProps) => {
+  return Object.is(prevProps.post, nextProps.post);
+});

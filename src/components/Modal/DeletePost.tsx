@@ -33,6 +33,7 @@ export function ModalDeletePost({ isOpen, onClose, id }: IModalDeletePostProps) 
         ...options
       });
       queryClient.invalidateQueries('posts');
+      onClose();
     },
     onError: () => {
       toast({

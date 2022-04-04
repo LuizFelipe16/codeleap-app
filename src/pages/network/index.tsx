@@ -4,17 +4,19 @@ import { Flex, Heading } from '@chakra-ui/react';
 import { CardPost } from '../../components/CardPost';
 import { FormCreatePost } from '../../components/Form/CreatePost';
 import { Loading } from '../../components/Loading';
+import { ScrollTopButton } from '../../components/ScrollTopButton';
 
 import { usePosts } from '../../hooks/querys/usePosts';
 
 export default function Network() {
   const { data, isLoading } = usePosts(1);
 
-  if (!!isLoading) return <Loading />
+  if (isLoading) return (<Loading />)
 
   return (
     <>
       <Head><title>Network | CodeLeap</title></Head>
+      <ScrollTopButton />
       <Flex
         w="100vw"
         minH="100vh"

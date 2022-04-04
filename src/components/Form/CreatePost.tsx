@@ -1,5 +1,5 @@
 import { Heading, useToast, VStack } from "@chakra-ui/react";
-
+import { useState } from "react";
 import { useMutation } from 'react-query';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,6 +27,9 @@ const createPostFormSchema = validateYup.object().shape({
 export function FormCreatePost() {
   const toast = useToast();
   const { user } = useUser();
+
+  const [isLoadingForm, setIsLoadingForm] = useState(false);
+
   const {
     register,
     reset,
@@ -53,6 +56,7 @@ export function FormCreatePost() {
         isClosable: true
       });
       queryClient.invalidateQueries('posts');
+      setIsLoadingForm(false);
       reset();
     },
     onError: () => {
@@ -64,6 +68,7 @@ export function FormCreatePost() {
         duration: 3000,
         isClosable: true
       });
+      setIsLoadingForm(false);
     }
   });
 
@@ -80,6 +85,8 @@ export function FormCreatePost() {
 
       return;
     }
+
+    setIsLoadingForm(true);
 
     await createPost.mutateAsync(values);
   }
@@ -116,7 +123,7 @@ export function FormCreatePost() {
         {...register('content')}
       />
 
-      <Button type="submit" text="CREATE" />
+      <Button isLoading={isLoadingForm} type="submit" text="CREATE" />
     </VStack>
   );
 }

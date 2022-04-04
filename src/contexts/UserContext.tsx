@@ -47,11 +47,11 @@ export function UserProvider({ children }: UserProviderProps) {
   }
 
   function signIn(username: string): void {
-    if (username.length < 3) {
+    if (username.length < 2) {
       toast({
         position: "top",
         title: 'Username error',
-        description: 'Fill in the "username" field correctly (minimum of 3 characters)',
+        description: 'Fill in the "username" field correctly (minimum of 2 characters)',
         status: 'error',
         duration: 3000,
         isClosable: true

@@ -81,7 +81,7 @@ export default function Signup() {
             <Button
               onClick={handleSignUp}
               isLoading={isLoadingSignUp}
-              className={`${username.length < 3 && commonStyles.deactivate}`}
+              className={`${username.length < 2 && commonStyles.deactivate}`}
               text="ENTER"
             />
           </VStack>

@@ -95,6 +95,7 @@ export function CardPost({ post }: ICardPostProps) {
       </VStack>
 
       <ModalEditPost
+        post={post}
         onClose={onOpenOrCloseModalEdit}
         isOpen={isModalEditOpen}
       />

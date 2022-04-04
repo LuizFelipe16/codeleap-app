@@ -29,7 +29,7 @@ export default function Signup() {
 
   return (
     <>
-      <Head><title>Network | CodeLeap</title></Head>
+      <Head><title>Signup | CodeLeap</title></Head>
       <Flex
         w="100vw"
         h="100vh"

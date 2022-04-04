@@ -48,20 +48,21 @@ export default function Signup() {
         <Flex
           w={["100%", "100%", "51%"]}
           h="100%"
-          mt={["-44", "-44", "0"]}
           align="center"
           justify="center"
         >
           <VStack
             data-aos="zoom-in"
             data-aos-duration="1500"
-
             w={["90%", "90%", "85%"]}
+            mt={["-25rem", "-20rem", "0"]}
+            zIndex="10"
             h="auto"
             minH="14rem"
             bg="white"
             p="6"
             boxShadow="md"
+            borderRadius="lg"
             align="flex-start"
             justify="space-between"
             spacing="4"

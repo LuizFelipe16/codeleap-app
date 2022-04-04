@@ -100,7 +100,7 @@ export function FormCreatePost() {
       mt="-32"
       spacing="5"
     >
-      <Heading fontSize="lg">What's on your mind?</Heading>
+      <Heading fontSize="lg">What&apos;s on your mind?</Heading>
       <Input
         is="title"
         label="Title"

@@ -26,7 +26,7 @@ export function ModalDeletePost({ isOpen, onClose, id }: IModalDeletePostProps) 
   }, {
     onSuccess: () => {
       toast({
-        position: "bottom",
+        position: "top",
         title: 'Post Deleted',
         status: 'success',
         duration: 3000,
@@ -36,7 +36,7 @@ export function ModalDeletePost({ isOpen, onClose, id }: IModalDeletePostProps) 
     },
     onError: () => {
       toast({
-        position: "bottom",
+        position: "top",
         title: 'Error Delete',
         description: 'An error occurred while trying to delete the post, please try again.',
         status: 'error',
@@ -51,7 +51,7 @@ export function ModalDeletePost({ isOpen, onClose, id }: IModalDeletePostProps) 
   return (
     <Modal isCentered size="lg" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay bg="#777777CC" />
-      <ModalContent>
+      <ModalContent w={["95%", "95%", ""]}>
         <ModalHeader color="black">Are you sure you want to delete this item?</ModalHeader>
         <ModalFooter>
           <Button

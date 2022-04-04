@@ -65,7 +65,7 @@ export function ModalEditPost({ isOpen, onClose, post }: IModalEditPostProps) {
   }, {
     onSuccess: () => {
       toast({
-        position: "bottom",
+        position: "top",
         title: 'Post Updated',
         status: 'success',
         duration: 3000,
@@ -77,7 +77,7 @@ export function ModalEditPost({ isOpen, onClose, post }: IModalEditPostProps) {
     },
     onError: () => {
       toast({
-        position: "bottom",
+        position: "top",
         title: 'Error Post',
         description: 'An error occurred while trying to update the post, please try again.',
         status: 'error',
@@ -94,7 +94,7 @@ export function ModalEditPost({ isOpen, onClose, post }: IModalEditPostProps) {
   return (
     <Modal isCentered size="lg" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay bg="#777777CC" />
-      <ModalContent>
+      <ModalContent w={["95%", "95%", ""]}>
         <ModalHeader color="black">Update item</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
@@ -104,6 +104,7 @@ export function ModalEditPost({ isOpen, onClose, post }: IModalEditPostProps) {
             align="flex-start"
             justify="space-between"
             spacing="5"
+            pb="3"
           >
             <Input
               is="title"

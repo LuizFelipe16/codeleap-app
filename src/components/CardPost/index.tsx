@@ -1,18 +1,26 @@
 import { Button, Flex, HStack, Text, useDisclosure, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+
 import { useUser } from "../../hooks/useUser";
+
 import { ModalDeletePost } from "../Modal/DeletePost";
 import { ModalEditPost } from "../Modal/EditPost";
 
-interface ICardPostProps {
+type Post = {
+  id: number;
   username: string;
   title: string;
   content: string;
-  first_publication_date: string;
+  created_datetime: string;
+  created_datetime_formatted: string;
 }
 
-export function CardPost({ username, title, content, first_publication_date }: ICardPostProps) {
+interface ICardPostProps {
+  post: Post;
+}
+
+export function CardPost({ post }: ICardPostProps) {
   const { onClose, isOpen, onOpen } = useDisclosure();
   const { user } = useUser();
 
@@ -46,9 +54,9 @@ export function CardPost({ username, title, content, first_publication_date }: I
           align="center"
           justify="space-between"
         >
-          <Text fontWeight="700" fontSize="lg" color="white">{title}</Text>
+          <Text fontWeight="700" fontSize="lg" color="white">{post.title}</Text>
 
-          {user.username === username && (
+          {user.username === post.username && (
             <HStack color="white" fontSize="lg" spacing="6">
               <Button
                 onClick={onOpen}
@@ -77,12 +85,12 @@ export function CardPost({ username, title, content, first_publication_date }: I
         </Flex>
 
         <Flex w="100%" px="6" align="center" justify="space-between">
-          <Text color="gray.500" fontWeight="700">@{username}</Text>
-          <Text color="gray.500" fontWeight="400">{first_publication_date} ago</Text>
+          <Text color="gray.500" fontWeight="700">@{post.username}</Text>
+          <Text color="gray.500" fontWeight="400">{post.created_datetime_formatted}</Text>
         </Flex>
 
         <Text px="6" color="black">
-          {content}
+          {post.content}
         </Text>
       </VStack>
 

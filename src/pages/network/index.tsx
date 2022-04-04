@@ -3,10 +3,14 @@ import { Flex, Heading } from '@chakra-ui/react';
 
 import { CardPost } from '../../components/CardPost';
 import { FormCreatePost } from '../../components/Form/CreatePost';
-import { useUser } from '../../hooks/useUser';
+import { Loading } from '../../components/Loading';
+
+import { usePosts } from '../../hooks/querys/usePosts';
 
 export default function Network() {
-  const { user } = useUser();
+  const { data, isLoading } = usePosts(1);
+
+  if (!!isLoading) return <Loading />
 
   return (
     <>
@@ -33,30 +37,8 @@ export default function Network() {
         <FormCreatePost />
 
         <br />
-        <CardPost
-          username="Luiz"
-          first_publication_date="1day"
-          title="My First Post"
-          content="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Illo rerum veritatis cumque fugit alias. Dolorem quam atque quia eaque neque in
-          cum possimus nemo nobis maiores ratione, veniam, pariatur veritatis!
 
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ea esse dignissimos accusamus, debitis consequatur atque fugit nulla nihil dicta,
-          necessitatibus nisi labore molestiae natus. Repellendus esse ab aperiam numquam pariatur."
-        />
-        <CardPost
-          username="Victor"
-          first_publication_date="2day"
-          title="My First Post"
-          content="Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Illo rerum veritatis cumque fugit alias. Dolorem quam atque quia eaque neque in
-          cum possimus nemo nobis maiores ratione, veniam, pariatur veritatis!
-
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Ea esse dignissimos accusamus, debitis consequatur atque fugit nulla nihil dicta,
-          necessitatibus nisi labore molestiae natus. Repellendus esse ab aperiam numquam pariatur."
-        />
+        {data?.posts?.map(post => <CardPost key={post.id} post={post} />)}
       </Flex>
     </>
   );

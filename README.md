@@ -66,10 +66,28 @@ Features
 =================
 <br/>
 
+- ✅ Implementation of automatic redirect if user is "Logged in" (with username) via withSSRGuest;
+- ✅ Implementation of automatic redirect if user is not "Logged in" (with username) via withSSRAuth;
+- ✅ Toast notification for user;
+- ✅ Loading screen for the data request to happen;
+- ✅ Input animations for elements;
+- ✅ Save user username in cookies;
+- ✅ Data caching with react query;
+- ✅ Scroll to go back to top;
+- ✅ http requests with axios to django api;
+- ✅ List of posts;
+- ✅ Form Validation with Yup;
+- ✅ Form control with React Hook Form;
+- ✅ Date formatting with date-fns;
+- ✅ Deleting a post;
+- ✅ Editing a post;
+- ✅ Adding Unit Tests with Jest and Testing Library;
+- ✅ Using Context API to control user methods and data;
 - ✅ Interface developed with system Chakra UI design;
 - ✅ Responsiveness with mobile devices;
 - ✅ Modern design;
-- ✅ Deploy in Vercel.
+- ✅ Deploy in Vercel;
+- ❌ Post pagination.
 
 <br/>
 

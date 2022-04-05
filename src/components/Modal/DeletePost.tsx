@@ -56,7 +56,7 @@ export function ModalDeletePost({ isOpen, onClose, id }: IModalDeletePostProps) 
         <ModalFooter>
           <Button
             onClick={onClose}
-            isLoading={deletePost.isLoading}
+            isLoading={deletePost?.isLoading}
             mr={3}
             fontWeight="700"
             bg="white"

@@ -56,7 +56,7 @@ function CardPostComponent({ post }: ICardPostProps) {
         >
           <Text fontWeight="700" fontSize="lg" color="white">{post.title}</Text>
 
-          {user.username === post.username && (
+          {user?.username === post.username && (
             <HStack color="white" fontSize="lg" spacing="6">
               <Button
                 onClick={onOpen}

@@ -117,7 +117,7 @@ export function ModalEditPost({ isOpen, onClose, post }: IModalEditPostProps) {
               {...register('content', { value: post.content })}
             />
 
-            <Button isLoading={updatePost.isLoading} type="submit" text="SAVE" />
+            <Button isLoading={updatePost?.isLoading} type="submit" text="SAVE" />
           </VStack>
         </ModalBody>
       </ModalContent>

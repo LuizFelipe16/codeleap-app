@@ -87,7 +87,7 @@ Features
 - ✅ Responsiveness with mobile devices;
 - ✅ Modern design;
 - ✅ Deploy in Vercel;
-- ❌ Post pagination.
+- ✅ Post pagination.
 
 <br/>
 

@@ -4,9 +4,9 @@ import { Box, Flex, Heading, Input, Text, VStack } from '@chakra-ui/react';
 
 import { useUser } from '../hooks/useUser';
 import { Button } from '../components/Button';
+import { withSSRGuest } from '../actions/withSSRGuest';
 
 import commonStyles from '../styles/pages/common.module.scss';
-import { withSSRGuest } from '../actions/withSSRGuest';
 
 export default function Signup() {
   const { signIn } = useUser();

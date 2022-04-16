@@ -60,20 +60,21 @@ export default function Network() {
 
         <FormCreatePost />
 
-        <Flex
+        <Stack
           w={["95%", "85%", "65%"]}
           mt="14"
-          direction="row"
+          spacing={["4", "4", "3"]}
+          direction={["column", "column", "row"]}
           align="center"
           justify="space-between"
         >
-          <Text fontSize="lg">
+          <Text fontSize="md" fontWeight="bold">
             Look posts from other users
           </Text>
 
           <Stack
-            w="70%"
-            direction="row"
+            w={["100%", "100%", "auto"]}
+            direction={["column", "column", "row"]}
             spacing="3"
             align="center"
             justify="flex-end"
@@ -82,7 +83,7 @@ export default function Network() {
               Posts to view per page:
             </Text>
             <Select
-              w="20%"
+              w={["50%", "10rem", "5rem"]}
               value={limit}
               onChange={(e) => setLimit(Number(e.target.value))}
               variant="filled"
@@ -95,7 +96,7 @@ export default function Network() {
               <option value={3}>30</option>
             </Select>
           </Stack>
-        </Flex>
+        </Stack>
 
         {data?.posts?.map(post => <CardPost key={post.id} post={post} />)}
 

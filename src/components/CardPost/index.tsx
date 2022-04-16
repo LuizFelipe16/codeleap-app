@@ -31,7 +31,7 @@ function CardPostComponent({ post }: ICardPostProps) {
     <>
       <VStack
         w={["93%", "85%", "65%"]}
-        minH="20rem"
+        minH="15rem"
         h="auto"
         bg="white"
         borderRadius="lg"

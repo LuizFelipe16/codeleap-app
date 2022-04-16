@@ -38,8 +38,6 @@ export async function getPosts({ page = 1, limit = 1 }: getPostsProps): Promise<
   const total_count = data.data?.count;
   const next_page = data.data?.next; // link
 
-  console.log(next_page)
-
   const posts = posts_results.map(post => ({
     id: post.id,
     title: post.title,
@@ -65,13 +63,3 @@ export function usePosts(page: number, limit: number) {
     staleTime: 1000 * 60 * 10, // 10 min
   });
 }
-
-// export function usePosts(page: number) {
-//   return useInfiniteQuery(
-//     'posts',
-//     () => getPosts({ page }),
-//     {
-//       getNextPageParam: (lastPage, pages) => lastPage.next_page
-//     }
-//   );
-// }

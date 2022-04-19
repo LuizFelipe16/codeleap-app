@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Flex, Heading } from '@chakra-ui/react';
 
-import { SignupWithUsername } from '../components/Form/SignupWithUsername';
+import { SignUpWithUsername } from '../components/Form/SignUpWithUsername';
 import { withSSRGuest } from '../actions/withSSRGuest';
 
 export default function Signup() {
@@ -29,7 +29,7 @@ export default function Signup() {
           <Heading fontSize={["4xl", "5xl", "6xl"]} color="white">CodeLeap.</Heading>
         </Flex>
 
-        <SignupWithUsername />
+        <SignUpWithUsername />
       </Flex>
     </>
   );

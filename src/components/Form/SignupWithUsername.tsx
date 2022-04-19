@@ -2,22 +2,16 @@ import { useState } from 'react';
 import { Box, Flex, Heading, Input, Text, VStack } from '@chakra-ui/react';
 
 import { useUser } from '../../hooks/useUser';
-import { Button } from '../../components/Button';
+import { Button } from '../Button';
 
 import commonStyles from '../../styles/pages/common.module.scss';
 
-export const SignupWithUsername = () => {
-  const { signIn } = useUser();
+export const SignUpWithUsername = () => {
+  const { signIn, isLoading } = useUser();
 
   const [username, setUsername] = useState("");
-  const [isLoadingSignUp, setIsLoadingSignUp] = useState(false);
 
-  function handleSignUp(): void {
-    setIsLoadingSignUp(true);
-    signIn(username);
-    setIsLoadingSignUp(false);
-    return;
-  }
+  const handleSignUp = (): void => signIn(username);
 
   return (
     <Flex
@@ -56,7 +50,7 @@ export const SignupWithUsername = () => {
 
         <Button
           onClick={handleSignUp}
-          isLoading={isLoadingSignUp}
+          isLoading={isLoading}
           className={`${username.length < 2 && commonStyles.deactivate}`}
           text="ENTER"
         />

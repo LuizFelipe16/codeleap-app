@@ -3,8 +3,13 @@ import { Flex, Heading } from '@chakra-ui/react';
 
 import { SignUpWithUsername } from '../components/Form/SignUpWithUsername';
 import { withSSRGuest } from '../actions/withSSRGuest';
+import { SignUp } from '../components/Form/Sign/SignUp';
+import { SignIn } from '../components/Form/Sign/SignIn';
+import { useState } from 'react';
 
 export default function Signup() {
+  const [isFormSign, setIsFormSign] = useState<"signup" | "signin">("signin");
+
   return (
     <>
       <Head><title>Signup | CodeLeap</title></Head>
@@ -29,7 +34,11 @@ export default function Signup() {
           <Heading fontSize={["4xl", "5xl", "6xl"]} color="white">CodeLeap.</Heading>
         </Flex>
 
-        <SignUpWithUsername />
+        {isFormSign === "signin" ? (
+          <SignIn onClickNotHaveAccount={() => setIsFormSign("signup")} />
+        ) : (
+          <SignUp onClickAlreadyHaveAccount={() => setIsFormSign("signin")} />
+        )}
       </Flex>
     </>
   );

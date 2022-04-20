@@ -1,21 +1,18 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import { Flex, Heading, Icon, Button as CButton, Text, Select, Stack } from '@chakra-ui/react';
-import { FaSignOutAlt } from 'react-icons/fa';
+import { Flex, Text, Select, Stack } from '@chakra-ui/react';
 
 import { CardPost } from '../../components/CardPost';
 import { FormCreatePost } from '../../components/Form/CreatePost';
 import { Loading } from '../../components/Loading';
 import { ScrollTopButton } from '../../components/ScrollTopButton';
 import { Pagination } from '../../components/Pagination';
+import { HeaderNetwork } from '../../components/HeaderNetwork';
 
 import { usePosts } from '../../hooks/querys/usePosts';
-import { useUser } from '../../hooks/useUser';
 import { withSSRAuth } from '../../actions/withSSRAuth';
 
 export default function Network() {
-  const { signOut } = useUser();
-
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(0.5);
 
@@ -36,27 +33,7 @@ export default function Network() {
         align="center"
         justify="flex-start"
       >
-        <Flex
-          w="100%"
-          h="15rem"
-          bg="black"
-          p="6"
-          justify="center"
-        >
-          <Heading w="auto" fontWeight="700" fontSize="1.6rem" color="white">CodeLeap Network</Heading>
-          <CButton
-            onClick={signOut}
-            bg="transparent"
-            position="absolute"
-            color="white"
-            right="10"
-            top="6"
-            transition="0.3s"
-            _hover={{ filter: 'brightness(60%)', }}
-          >
-            <Icon as={FaSignOutAlt} />
-          </CButton>
-        </Flex>
+        <HeaderNetwork />
 
         <FormCreatePost />
 

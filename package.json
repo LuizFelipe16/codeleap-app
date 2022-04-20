@@ -15,6 +15,7 @@
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
     "@hookform/resolvers": "^2.8.8",
+    "@radix-ui/react-dropdown-menu": "^0.1.6",
     "axios": "^0.26.1",
     "bcrypt": "^5.0.1",
     "date-fns": "^2.28.0",

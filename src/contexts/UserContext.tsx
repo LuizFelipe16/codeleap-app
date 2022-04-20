@@ -8,6 +8,7 @@ import { options } from "../utils/toast";
 
 type TokenPayload = {
   username: string;
+  email: string;
   sub: string;
   exp: number;
   iat: number;

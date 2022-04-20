@@ -6,8 +6,9 @@ export function withSSRGuest<P>(fn: GetServerSideProps<P>) {
     const cookies = parseCookies(ctx);
 
     const username = cookies['codeleap.username'];
+    const token = cookies['codeleap.token'];
 
-    if (!!username) {
+    if (!!username || !!token) {
       return {
         redirect: {
           destination: '/network',

@@ -39,7 +39,8 @@ const SignIn = async (request: NextApiRequest, response: NextApiResponse) => {
 
       const token = sign(
         {
-          username: resp.data.username
+          username: resp.data.username,
+          email: resp.data.email,
         },
         process.env.AUTH_SECRET,
         {

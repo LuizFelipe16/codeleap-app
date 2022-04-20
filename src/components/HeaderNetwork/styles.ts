@@ -2,7 +2,7 @@ import { styled } from '@stitches/react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 export const MenuContentStyled = styled(DropdownMenu.Content, {
-  minWidth: 100,
+  minWidth: 110,
   backgroundColor: 'white',
   borderRadius: 6,
   transition: '0.2s',

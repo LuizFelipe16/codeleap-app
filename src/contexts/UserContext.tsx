@@ -21,6 +21,7 @@ interface SignInData {
 type User = {
   username: string;
   token: string;
+  decode: TokenPayload;
 }
 
 type UserContextData = {
@@ -52,6 +53,7 @@ export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<User>({
     username: !username ? "" : username,
     token: !token ? "" : token,
+    decode: {}
   } as User);
 
   function signOut(): void {
@@ -64,7 +66,7 @@ export function UserProvider({ children }: UserProviderProps) {
       ...options
     });
 
-    setUser({ username: "", token: "" });
+    setUser({ username: "", token: "", decode: {} as TokenPayload });
     destroyCookie(undefined, 'codeleap.username');
     destroyCookie(undefined, 'codeleap.token');
 
@@ -77,7 +79,9 @@ export function UserProvider({ children }: UserProviderProps) {
   function signIn({ token }: SignInData): void {
     setIsLoading(true);
 
-    const { username } = decode(token) as TokenPayload;
+    const decodeToken = decode(token) as TokenPayload
+
+    const { username } = decodeToken;
 
     setCookie(undefined, 'codeleap.username', username, {
       maxAge: 60 * 60 * 24,
@@ -89,7 +93,12 @@ export function UserProvider({ children }: UserProviderProps) {
       path: '/'
     });
 
-    setUser({ username, token });
+    setUser({
+      username,
+      token,
+      decode:
+        decodeToken
+    });
 
     Router.push('/network');
     setIsLoading(false);

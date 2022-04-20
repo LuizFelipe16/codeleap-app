@@ -1,4 +1,5 @@
 import { query as q } from 'faunadb';
+import bcrypt from 'bcrypt';
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { fauna } from '../../../services/fauna';
@@ -22,30 +23,50 @@ interface UserQueryResponse {
 const MethodsUsers = async (request: NextApiRequest, response: NextApiResponse) => {
   if (request.method === "POST") {
     const {
-      name,
-      email
+      username,
+      email,
+      password
     } = request.body;
 
-    try {
-      const user = {
-        email,
-        name
-      };
+    const passwordEncrypted = await bcrypt.hashSync(String(password), bcrypt.genSaltSync(10));
 
+    const data = {
+      username,
+      email,
+      password: passwordEncrypted
+    };
+
+    // const user = await fauna.query<UserQueryResponse>(
+    //   q.Get(
+    //     q.Match(q.Index("user_by_email"), email)
+    //   )
+    // );
+
+    // if (user) {
+
+    // }
+
+    try {
       await fauna.query(
         q.Create(
           q.Collection("users"),
-          { user }
+          { data }
         )
-      );
+      ).then(() => {
+        return response.status(201).json({
+          message: "Created user."
+        });
+      }).catch(() => {
+        return response.status(200).json({
+          error: "This user already exists. Use another email!"
+        });
+      })
 
-      return response.status(201).json({
-        message: "Created user."
-      });
+
 
     } catch (err) {
       return response.status(400).json({
-        error: "Unexpected error. Unable to register the user.."
+        error: "Unexpected error. Unable to register the user."
       });
     }
   }

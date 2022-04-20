@@ -34,11 +34,13 @@ export default function Signup() {
           <Heading fontSize={["4xl", "5xl", "6xl"]} color="white">CodeLeap.</Heading>
         </Flex>
 
-        {isFormSign === "signin" ? (
-          <SignIn onClickNotHaveAccount={() => setIsFormSign("signup")} />
-        ) : (
-          <SignUp onClickAlreadyHaveAccount={() => setIsFormSign("signin")} />
-        )}
+        {isFormSign === "signin"
+          ? (
+            <SignIn onClickNotHaveAccount={() => setIsFormSign("signup")} />
+          ) : (
+            <SignUp onClickAlreadyHaveAccount={() => setIsFormSign("signin")} />
+          )
+        }
       </Flex>
     </>
   );

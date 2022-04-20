@@ -27,7 +27,7 @@ export default function Signup() {
           p="16"
           bg="black"
           position="relative"
-          align="center"
+          align={["flex-start", "flex-start", "center"]}
           justify={["center", "center", "flex-start"]}
           borderEndEndRadius={["0", "0", "30rem"]}
         >

@@ -13,7 +13,6 @@ interface ISignProps {
   onSubmitForm: any;
 
   isLoading: boolean;
-  isLoadingSecond?: boolean;
 }
 
 export const Sign = (
@@ -25,8 +24,7 @@ export const Sign = (
     onClick,
     subtitle,
     description,
-    isLoading,
-    isLoadingSecond
+    isLoading
   }: ISignProps
 ) => (
   <Flex
@@ -34,10 +32,11 @@ export const Sign = (
     h="100%"
     align="center"
     justify="center"
+    mt={["10", "10", "0"]}
   >
     <Flex
-      // data-aos="zoom-in"
-      // data-aos-duration="1000"
+      data-aos="zoom-in"
+      data-aos-duration="1000"
       as="form"
       onSubmit={onSubmitForm}
       w={["90%", "90%", "85%"]}

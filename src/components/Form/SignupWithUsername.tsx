@@ -6,12 +6,14 @@ import { Button } from '../Button';
 
 import commonStyles from '../../styles/pages/common.module.scss';
 
+// outdated sign in form
+
 export const SignUpWithUsername = () => {
   const { signIn, isLoading } = useUser();
 
   const [username, setUsername] = useState("");
 
-  const handleSignUp = (): void => signIn(username);
+  // const handleSignUp = (): void => signIn(username);
 
   return (
     <Flex
@@ -49,7 +51,7 @@ export const SignUpWithUsername = () => {
         </Box>
 
         <Button
-          onClick={handleSignUp}
+          // onClick={handleSignUp}
           isLoading={isLoading}
           className={`${username.length < 2 && commonStyles.deactivate}`}
           text="ENTER"

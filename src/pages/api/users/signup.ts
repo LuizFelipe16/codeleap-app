@@ -4,13 +4,13 @@ import bcrypt from 'bcrypt';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { fauna } from '../../../services/fauna';
 
-const SignUp = async (request: NextApiRequest, response: NextApiResponse) => {
-  if (request.method === "POST") {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === "POST") {
     const {
       username,
       email,
       password
-    } = request.body;
+    } = req.body;
 
     const passwordEncrypted = await bcrypt.hashSync(String(password), bcrypt.genSaltSync(10));
 
@@ -20,32 +20,19 @@ const SignUp = async (request: NextApiRequest, response: NextApiResponse) => {
       password: passwordEncrypted
     };
 
-    try {
-      await fauna.query(
-        q.Create(
-          q.Collection("users"),
-          { data }
-        )
-      ).then(() => {
-        return response.status(201).json({
-          message: "Created user."
-        });
-      }).catch(() => {
-        return response.status(200).json({
-          error: "This user already exists. Use another email!"
-        });
+    await fauna.query(
+      q.Create(
+        q.Collection("users"),
+        { data }
+      )
+    ).then(() => {
+      return res.status(201).json({
+        message: "Created user."
       });
-
-    } catch (err) {
-      return response.status(400).json({
-        error: "Unexpected error. Unable to register the user."
+    }).catch(() => {
+      return res.status(200).json({
+        error: "This user already exists. Use another email!"
       });
-    }
+    });
   }
-
-  return response.status(405).json({
-    error: `Method '${request.method}' Not Allowed`
-  });
 }
-
-export default SignUp;

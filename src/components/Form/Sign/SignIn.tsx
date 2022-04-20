@@ -58,6 +58,7 @@ export const SignIn = ({ onClickNotHaveAccount }: ISignInProps) => {
       reset();
       signIn({ token });
       setIsLoading(isLoadingUser);
+      setIsLoading(false);
 
       return;
     }

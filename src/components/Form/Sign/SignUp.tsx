@@ -63,13 +63,13 @@ export const SignUp = ({ onClickAlreadyHaveAccount }: ISignUpProps) => {
       return;
     }
 
+    setIsLoading(false);
     toast({
       position: 'top',
       title: 'Unexpected error. Unable to register the user.',
       status: 'error',
       ...options
     });
-    setIsLoading(false);
   }
 
   return (

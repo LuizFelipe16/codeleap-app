@@ -17,12 +17,12 @@ interface User {
   };
 }
 
-const SignIn = async (request: NextApiRequest, response: NextApiResponse) => {
-  if (request.method === 'POST') {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  if (req.method === 'POST') {
     const {
       email,
       password
-    } = request.body;
+    } = req.body;
 
     await fauna.query<User>(
       q.Get(
@@ -32,7 +32,7 @@ const SignIn = async (request: NextApiRequest, response: NextApiResponse) => {
       const passwordMatch = bcrypt.compareSync(password, resp.data?.password);
 
       if (!passwordMatch) {
-        return response.status(200).json({
+        return res.status(200).json({
           error: "Incorrect email/password"
         });
       }
@@ -49,20 +49,14 @@ const SignIn = async (request: NextApiRequest, response: NextApiResponse) => {
         }
       );
 
-      return response.status(200).json({
+      return res.status(200).json({
         message: "Sign in successfully! Wait a moment",
         token: token
       });
     }).catch(() => {
-      return response.status(200).json({
+      return res.status(200).json({
         error: "Incorrect email/password"
       });
     });
   }
-
-  return response.status(405).json({
-    error: `Method '${request.method}' Not Allowed`
-  });
 }
-
-export default SignIn;

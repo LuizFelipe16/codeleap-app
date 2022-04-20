@@ -36,6 +36,9 @@ The following tools were used in building the project:
 - 👉 [Jest](https://jestjs.io/pt-BR/)
 - 👉 [Testing Library](https://testing-library.com)
 - 👉 [AnimateOnScroll](https://michalsnik.github.io/aos/)
+- 👉 [FaunaDB](https://michalsnik.github.io/aos/)
+- 👉 [Bcrypt](https://www.npmjs.com/package/bcrypt)
+- 👉 [Jsonwebtoken](https://jwt.io)
 
 <br/>
 

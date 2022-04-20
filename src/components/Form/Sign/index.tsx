@@ -33,6 +33,8 @@ export const Sign = (
     <Flex
       // data-aos="zoom-in"
       // data-aos-duration="1000"
+      as="form"
+      onSubmit={onSubmitForm}
       w={["90%", "90%", "85%"]}
       mt={["-25rem", "-20rem", "0"]}
       zIndex="10"
@@ -54,7 +56,7 @@ export const Sign = (
       {children}
 
       <Button
-        onClick={onSubmitForm}
+        type="submit"
         marginTop="1.2rem"
         w="100%"
         size="md"

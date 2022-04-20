@@ -46,7 +46,7 @@ export const SignUp = ({ onClickAlreadyHaveAccount }: ISignUpProps) => {
   const errors = formState.errors;
 
   const handleRegisterNewUser: SubmitHandler<CreateUserFormData> = async (data) => {
-    const response = await api_next.post('/users', data);
+    const response = await api_next.post('/users/signup', data);
 
     if (response.data?.error) {
       toast({ position: 'top', title: response.data?.error, status: 'error', ...options });
@@ -56,6 +56,7 @@ export const SignUp = ({ onClickAlreadyHaveAccount }: ISignUpProps) => {
     if (response.data?.message) {
       reset();
       toast({ position: 'top', title: response.data?.message, status: 'success', ...options });
+      onClickAlreadyHaveAccount;
 
       return;
     }

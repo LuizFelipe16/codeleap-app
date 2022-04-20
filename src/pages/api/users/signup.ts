@@ -4,23 +4,7 @@ import bcrypt from 'bcrypt';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { fauna } from '../../../services/fauna';
 
-interface UserQueryResponse {
-  after?: {
-    id: string;
-  };
-  data: {
-    data: {
-      email: string;
-      name: string;
-    };
-    ts: number;
-    ref: {
-      id: string;
-    };
-  };
-}
-
-const MethodsUsers = async (request: NextApiRequest, response: NextApiResponse) => {
+const SignUp = async (request: NextApiRequest, response: NextApiResponse) => {
   if (request.method === "POST") {
     const {
       username,
@@ -36,16 +20,6 @@ const MethodsUsers = async (request: NextApiRequest, response: NextApiResponse) 
       password: passwordEncrypted
     };
 
-    // const user = await fauna.query<UserQueryResponse>(
-    //   q.Get(
-    //     q.Match(q.Index("user_by_email"), email)
-    //   )
-    // );
-
-    // if (user) {
-
-    // }
-
     try {
       await fauna.query(
         q.Create(
@@ -60,9 +34,7 @@ const MethodsUsers = async (request: NextApiRequest, response: NextApiResponse) 
         return response.status(200).json({
           error: "This user already exists. Use another email!"
         });
-      })
-
-
+      });
 
     } catch (err) {
       return response.status(400).json({
@@ -71,24 +43,9 @@ const MethodsUsers = async (request: NextApiRequest, response: NextApiResponse) 
     }
   }
 
-  if (request.method === 'GET') {
-    const { email } = request.body;
-
-    return await fauna.query<UserQueryResponse>(
-      q.Get(
-        q.Match(q.Index("user_by_email"), email)
-      )
-    ).then(res => {
-      return response.status(200).json({
-        message: 'User found successfully',
-        user: res.data
-      });
-    });
-  }
-
   return response.status(405).json({
     error: `Method '${request.method}' Not Allowed`
   });
 }
 
-export default MethodsUsers;
+export default SignUp;

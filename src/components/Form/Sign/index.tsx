@@ -11,6 +11,9 @@ interface ISignProps {
 
   buttonText: string;
   onSubmitForm: any;
+
+  isLoading: boolean;
+  isLoadingSecond?: boolean;
 }
 
 export const Sign = (
@@ -21,7 +24,9 @@ export const Sign = (
     buttonText,
     onClick,
     subtitle,
-    description
+    description,
+    isLoading,
+    isLoadingSecond
   }: ISignProps
 ) => (
   <Flex
@@ -57,6 +62,7 @@ export const Sign = (
 
       <Button
         type="submit"
+        isLoading={isLoading}
         marginTop="1.2rem"
         w="100%"
         size="md"

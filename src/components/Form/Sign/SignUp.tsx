@@ -1,5 +1,5 @@
 import { Stack, useToast } from '@chakra-ui/react';
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useState } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -33,6 +33,7 @@ const createUserFormSchema = validateYup.object().shape({
 
 export const SignUp = ({ onClickAlreadyHaveAccount }: ISignUpProps) => {
   const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -46,18 +47,19 @@ export const SignUp = ({ onClickAlreadyHaveAccount }: ISignUpProps) => {
   const errors = formState.errors;
 
   const handleRegisterNewUser: SubmitHandler<CreateUserFormData> = async (data) => {
+    setIsLoading(true);
     const response = await api_next.post('/users/signup', data);
 
     if (response.data?.error) {
       toast({ position: 'top', title: response.data?.error, status: 'error', ...options });
+      setIsLoading(false);
       return;
     }
 
     if (response.data?.message) {
-      reset();
       toast({ position: 'top', title: response.data?.message, status: 'success', ...options });
-      onClickAlreadyHaveAccount;
-
+      reset();
+      setIsLoading(false);
       return;
     }
 
@@ -67,6 +69,7 @@ export const SignUp = ({ onClickAlreadyHaveAccount }: ISignUpProps) => {
       status: 'error',
       ...options
     });
+    setIsLoading(false);
   }
 
   return (
@@ -77,6 +80,7 @@ export const SignUp = ({ onClickAlreadyHaveAccount }: ISignUpProps) => {
       onSubmitForm={handleSubmit(handleRegisterNewUser)}
       subtitle="already have an account? begin session"
       onClick={onClickAlreadyHaveAccount}
+      isLoading={isLoading}
     >
       <Input
         is="username"

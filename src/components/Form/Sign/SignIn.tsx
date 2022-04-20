@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useState } from 'react';
 import { decode } from 'jsonwebtoken';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -35,7 +35,8 @@ const signInUserFormSchema = validateYup.object().shape({
 
 export const SignIn = ({ onClickNotHaveAccount }: ISignInProps) => {
   const toast = useToast();
-  const { signIn } = useUser();
+  const { signIn, isLoading: isLoadingUser } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -49,10 +50,12 @@ export const SignIn = ({ onClickNotHaveAccount }: ISignInProps) => {
   const errors = formState.errors;
 
   const handleSignInUser: SubmitHandler<SignInUserFormData> = async (data) => {
+    setIsLoading(true);
     const response = await api_next.post('/users/signin', data);
 
     if (response.data?.error) {
       toast({ position: 'top', title: response.data?.error, status: 'error', ...options });
+      setIsLoading(false);
       return;
     }
 
@@ -62,6 +65,7 @@ export const SignIn = ({ onClickNotHaveAccount }: ISignInProps) => {
       const { username } = decode(response.data?.token) as TokenPayload;
       reset();
       signIn(username);
+      setIsLoading(isLoadingUser);
 
       return;
     }
@@ -72,6 +76,7 @@ export const SignIn = ({ onClickNotHaveAccount }: ISignInProps) => {
       status: 'error',
       ...options
     });
+    setIsLoading(false);
   }
 
   return (
@@ -81,6 +86,7 @@ export const SignIn = ({ onClickNotHaveAccount }: ISignInProps) => {
       onSubmitForm={handleSubmit(handleSignInUser)}
       subtitle="not have an account yet?"
       onClick={onClickNotHaveAccount}
+      isLoading={isLoading}
     >
       <Input
         type="email"

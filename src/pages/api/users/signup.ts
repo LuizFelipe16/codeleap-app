@@ -1,7 +1,7 @@
+import { NextApiRequest, NextApiResponse } from 'next';
 import { query as q } from 'faunadb';
 import bcrypt from 'bcrypt';
 
-import { NextApiRequest, NextApiResponse } from 'next';
 import { fauna } from '../../../services/fauna';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {

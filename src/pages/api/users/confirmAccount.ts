@@ -1,7 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { query as q } from 'faunadb';
 import bcrypt from 'bcrypt';
-import { sign } from 'jsonwebtoken';
 
 import { fauna } from '../../../services/fauna';
 
@@ -33,29 +32,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       if (!passwordMatch) {
         return res.status(200).json({
-          error: "Incorrect email/password"
+          error: "Account not verified. Try again",
+          isAccountConfirm: false
         });
       }
 
-      const token = sign(
-        {
-          username: resp.data.username,
-          email: resp.data.email,
-        },
-        process.env.AUTH_SECRET,
-        {
-          subject: resp.ref.id,
-          expiresIn: "1d"
-        }
-      );
-
       return res.status(200).json({
-        message: "Sign in successfully! Wait a moment",
-        token: token
+        message: "Account verified successfully!",
+        isAccountConfirm: true
       });
     }).catch(() => {
       return res.status(200).json({
-        error: "Incorrect email/password"
+        error: "Account not verified. Try again",
+        isAccountConfirm: false
       });
     });
   }

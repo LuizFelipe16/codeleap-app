@@ -27,6 +27,10 @@ type User = {
 type UserContextData = {
   user: User;
   setUser: Dispatch<SetStateAction<User>>;
+
+  isAccountConfirm: boolean;
+  setIsAccountConfirm: Dispatch<SetStateAction<boolean>>;
+
   signIn: ({ token }: SignInData) => void;
   signOut: () => void;
 
@@ -55,6 +59,8 @@ export function UserProvider({ children }: UserProviderProps) {
     token: !token ? "" : token,
     decode: {}
   } as User);
+
+  const [isAccountConfirm, setIsAccountConfirm] = useState(false); // edit
 
   function signOut(): void {
     setIsLoading(true);
@@ -110,6 +116,8 @@ export function UserProvider({ children }: UserProviderProps) {
     <UserContext.Provider value={{
       user,
       setUser,
+      isAccountConfirm,
+      setIsAccountConfirm,
       signIn,
       signOut,
       isLoading,

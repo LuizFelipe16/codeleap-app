@@ -1,5 +1,4 @@
 import { MouseEventHandler, useState } from 'react';
-import { decode } from 'jsonwebtoken';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -14,13 +13,6 @@ import { useUser } from '../../../hooks/useUser';
 
 interface ISignInProps {
   onClickNotHaveAccount: MouseEventHandler<HTMLParagraphElement>;
-}
-
-interface TokenPayload {
-  username: string;
-  sub: string;
-  exp: number;
-  iat: number;
 }
 
 type SignInUserFormData = {
@@ -62,9 +54,9 @@ export const SignIn = ({ onClickNotHaveAccount }: ISignInProps) => {
     if (response.data?.message) {
       toast({ position: 'top', title: response.data?.message, status: 'success', ...options });
 
-      const { username } = decode(response.data?.token) as TokenPayload;
+      const token = response.data?.token;
       reset();
-      signIn(username);
+      signIn({ token });
       setIsLoading(isLoadingUser);
 
       return;

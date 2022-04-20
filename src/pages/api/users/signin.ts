@@ -49,7 +49,7 @@ const SignIn = async (request: NextApiRequest, response: NextApiResponse) => {
       );
 
       return response.status(200).json({
-        message: "Sign in successfully",
+        message: "Sign in successfully! Wait a moment",
         token: token
       });
     }).catch(() => {

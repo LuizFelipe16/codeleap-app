@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { Flex, VStack, useDisclosure, HStack, Heading, Button as CButton, useToast } from '@chakra-ui/react';
+import { Flex, VStack, useDisclosure, HStack, Heading, Button as CButton, useToast, Stack } from '@chakra-ui/react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -18,11 +18,18 @@ import { options } from '../../utils/toast';
 type AccountFormData = {
   username: string;
   email: string;
+  password: string;
+  password_confirmation: string;
 }
 
 const accountFormSchema = validateYup.object().shape({
   username: validateYup.string().required("Username is required").min(3, 'Minimum of 3 characters'),
-  email: validateYup.string().email("Invalid e-mail").required("E-mail is required")
+  email: validateYup.string().email("Invalid e-mail").required("E-mail is required"),
+  password: validateYup.string().required("Password is required").min(6, 'Minimum of 6 characters'),
+  password_confirmation: validateYup.string().oneOf([
+    null,
+    validateYup.ref('password')
+  ], 'Passwords do not match'),
 });
 
 export default function Account() {
@@ -36,7 +43,6 @@ export default function Account() {
 
   const {
     register,
-    reset,
     formState,
     handleSubmit
   } = useForm<AccountFormData>({
@@ -47,7 +53,10 @@ export default function Account() {
 
   const handleEditUser: SubmitHandler<AccountFormData> = async (data) => {
     setIsLoading(true);
-    const response = await api_next.put(`/users/${user.decode.sub}`, data);
+    const response = await api_next.put(`/users/${user.decode.sub}`, {
+      ...data,
+      user_email: user.decode.email
+    });
 
     if (response.data?.error) {
       toast({ position: 'top', title: response.data?.error, status: 'error', ...options });
@@ -57,9 +66,8 @@ export default function Account() {
 
     if (response.data?.message) {
       toast({ position: 'top', title: response.data?.message, status: 'success', ...options });
-      reset();
       setIsLoading(false);
-      // signOut();
+      signOut();
       return;
     }
 
@@ -83,8 +91,8 @@ export default function Account() {
         justify="center"
       >
         <VStack
-          as="form"
-          onSubmit={!!isAccountConfirm && handleSubmit(handleEditUser)}
+          as={!isAccountConfirm ? "div" : "form"}
+          onSubmit={handleSubmit(handleEditUser)}
           data-aos="fade-down"
           w={["93%", "85%", "50%"]}
           h="auto"
@@ -100,7 +108,7 @@ export default function Account() {
           <Input
             is="username"
             label="Username"
-            placeholder="digit your username"
+            placeholder="enter your username"
             error={errors.username}
             {...register('username', { value: user.decode.username })}
             isDisabled={!isAccountConfirm}
@@ -108,11 +116,32 @@ export default function Account() {
           <Input
             is="email"
             label="E-mail"
-            placeholder="digit your e-mail"
+            placeholder="enter your e-mail"
             error={errors.email}
             {...register('email', { value: user.decode.email })}
             isDisabled={!isAccountConfirm}
           />
+
+          <Stack direction={["column", "row", "row"]} w="100%" spacing="2" justify="space-between">
+            <Input
+              type="password"
+              is="password"
+              label="Password"
+              placeholder="new password or repeat the old one"
+              error={errors.password}
+              {...register('password')}
+              isDisabled={!isAccountConfirm}
+            />
+            <Input
+              type="password"
+              is="password_confirmation"
+              label="Password Confirm"
+              placeholder="password Confirm"
+              error={errors.password_confirmation}
+              {...register('password_confirmation')}
+              isDisabled={!isAccountConfirm}
+            />
+          </Stack>
 
           <br />
 
@@ -130,7 +159,7 @@ export default function Account() {
             </CButton>
             <CButton
               onClick={!isAccountConfirm && onOpen}
-              type={!isAccountConfirm ? "button" : "submit"}
+              type="submit"
               isLoading={isLoading}
               size="md"
               fontWeight="500"
@@ -139,7 +168,7 @@ export default function Account() {
               transition="0.2s"
               _hover={{ filter: 'brightness(70%)' }}
             >
-              Edit
+              {!isAccountConfirm ? "Edit" : "Confirm edit"}
             </CButton>
           </HStack>
         </VStack>

@@ -72,6 +72,7 @@ export function UserProvider({ children }: UserProviderProps) {
       ...options
     });
 
+    setIsAccountConfirm(false);
     setUser({ username: "", token: "", decode: {} as TokenPayload });
     destroyCookie(undefined, 'codeleap.username');
     destroyCookie(undefined, 'codeleap.token');

@@ -54,11 +54,15 @@ export function UserProvider({ children }: UserProviderProps) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [user, setUser] = useState<User>({
-    username: !username ? "" : username,
-    token: !token ? "" : token,
-    decode: {}
-  } as User);
+  const [user, setUser] = useState<User>(() => {
+    const decodeToken = decode(token) as TokenPayload;
+
+    return {
+      username: !username ? "" : username,
+      token: !token ? "" : token,
+      decode: !token ? {} : decodeToken
+    } as User
+  });
 
   const [isAccountConfirm, setIsAccountConfirm] = useState(false); // edit
 
@@ -86,7 +90,7 @@ export function UserProvider({ children }: UserProviderProps) {
   function signIn({ token }: SignInData): void {
     setIsLoading(true);
 
-    const decodeToken = decode(token) as TokenPayload
+    const decodeToken = decode(token) as TokenPayload;
 
     const { username } = decodeToken;
 

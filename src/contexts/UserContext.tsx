@@ -69,12 +69,14 @@ export function UserProvider({ children }: UserProviderProps) {
   function signOut(): void {
     setIsLoading(true);
 
-    toast({
-      position: "top",
-      title: 'Logged Out',
-      status: 'success',
-      ...options
-    });
+    if (!isAccountConfirm) {
+      toast({
+        position: "top",
+        title: 'Logged Out',
+        status: 'success',
+        ...options
+      });
+    }
 
     setIsAccountConfirm(false);
     setUser({ username: "", token: "", decode: {} as TokenPayload });

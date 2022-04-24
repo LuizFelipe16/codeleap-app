@@ -78,6 +78,7 @@ export default function Account() {
       status: 'error',
       ...options
     });
+    return;
   }
 
   return (
@@ -91,7 +92,7 @@ export default function Account() {
         justify="center"
       >
         <VStack
-          as={!isAccountConfirm ? "div" : "form"}
+          as="form"
           onSubmit={handleSubmit(handleEditUser)}
           data-aos="fade-down"
           w={["93%", "85%", "50%"]}
@@ -157,19 +158,33 @@ export default function Account() {
             >
               Return to network
             </CButton>
-            <CButton
-              onClick={!isAccountConfirm && onOpen}
-              type="submit"
-              isLoading={isLoading}
-              size="md"
-              fontWeight="500"
-              bg="black"
-              color="white"
-              transition="0.2s"
-              _hover={{ filter: 'brightness(70%)' }}
-            >
-              {!isAccountConfirm ? "Edit" : "Confirm edit"}
-            </CButton>
+            {!isAccountConfirm ? (
+              <CButton
+                onClick={onOpen}
+                type="button"
+                size="md"
+                fontWeight="500"
+                bg="black"
+                color="white"
+                transition="0.2s"
+                _hover={{ filter: 'brightness(70%)' }}
+              >
+                Edit
+              </CButton>
+            ) : (
+              <CButton
+                type="submit"
+                isLoading={isLoading}
+                size="md"
+                fontWeight="500"
+                bg="black"
+                color="white"
+                transition="0.2s"
+                _hover={{ filter: 'brightness(70%)' }}
+              >
+                Confirm edit
+              </CButton>
+            )}
           </HStack>
         </VStack>
       </Flex>

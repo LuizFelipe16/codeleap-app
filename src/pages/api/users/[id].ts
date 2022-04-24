@@ -14,12 +14,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       password
     } = req.body;
 
-    if (user_email === email) {
-      return res.status(200).json({
-        error: 'The new email is the same as the one already registered.'
-      });
-    }
-
     await fauna.query(
       q.Get(
         q.Match(q.Index("user_by_email"), email)

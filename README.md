@@ -24,6 +24,7 @@ The following tools were used in building the project:
 - 👉 [ReactJS](https://pt-br.reactjs.org/)
 - 👉 [TypeScript](https://www.typescriptlang.org/)
 - 👉 [Chakra UI](https://chakra-ui.com/guides/first-steps)
+- 👉 [Radix UI](https://www.radix-ui.com)
 - 👉 [ReactHookForm](https://react-hook-form.com/get-started/)
 - 👉 [ReactQuery](https://react-query.tanstack.com)
 - 👉 [Yup](https://github.com/jquense/yup)
@@ -69,7 +70,12 @@ Features
 =================
 <br/>
 
-- ✅ ...
+- ✅ Sing in with email and password;
+- ✅ Registration of a user, password encryption with Bcrypt;
+- ✅ Verification of an existing user;
+- ✅ FaunaDB database connection;
+- ✅ User authentication and jwt token generation;
+- ✅ Update user data with password confirmation;
 - ✅ Implementation of automatic redirect if user is "Logged in" (with username) via withSSRGuest;
 - ✅ Implementation of automatic redirect if user is not "Logged in" (with username) via withSSRAuth;
 - ✅ Toast notification for user;
@@ -85,13 +91,14 @@ Features
 - ✅ Date formatting with date-fns;
 - ✅ Deleting a post;
 - ✅ Editing a post;
+- ✅ Post pagination;
+- ✅ User choose the amount of posts they want to see per page;
 - ✅ Adding Unit Tests with Jest and Testing Library;
 - ✅ Using Context API to control user methods and data;
-- ✅ Interface developed with system Chakra UI design;
+- ✅ Interface developed with system Chakra UI and Radix UI design;
 - ✅ Responsiveness with mobile devices;
 - ✅ Modern design;
-- ✅ Deploy in Vercel;
-- ✅ Post pagination.
+- ✅ Deploy in Vercel.
 
 <br/>
 

@@ -69,6 +69,7 @@ Features
 =================
 <br/>
 
+- ✅ ...
 - ✅ Implementation of automatic redirect if user is "Logged in" (with username) via withSSRGuest;
 - ✅ Implementation of automatic redirect if user is not "Logged in" (with username) via withSSRAuth;
 - ✅ Toast notification for user;
@@ -126,7 +127,13 @@ Screen Shots
 
 <br/>
 
-- Signup
+- Sign in
+
+![ScreenShot](/public/git/signin.png)
+
+<br/>
+
+- Sign up
 
 ![ScreenShot](/public/git/signup.png)
 
@@ -153,6 +160,18 @@ Screen Shots
 - Modal Edit
 
 ![ScreenShot](/public/git/modal-edit.png)
+
+<br/>
+
+- Account
+
+![ScreenShot](/public/git/account.png)
+
+<br/>
+
+- Modal Confirm Account
+
+![ScreenShot](/public/git/modal-confirm.png)
 
 <br/>
 
